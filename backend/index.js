@@ -1,9 +1,13 @@
+// importem els paquets requerits
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
 const cors = require('cors')
 
+// el servidor escoltarà en el port 4000
 const PORT = 4000
+
+//
 app.use(cors())
 app.listen(PORT, function () {
   console.log('Server is running on Port: ' + PORT)
@@ -43,3 +47,5 @@ router.route('/users').get((req, res) => {
     }
   })
 })
+
+router.route()
