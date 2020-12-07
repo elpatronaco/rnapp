@@ -1,13 +1,13 @@
 # RNAPP
 
-Projecte d'aprenentatge. Aquesta aplicació permet autorització contra la base de dades i la funcionalitat encara no està establerta.
+Learning project. This app allows authorization against the back-end, but the final functioning is not yet established.
 
-## Tecnologies
+## Technologies
 
-### Aplicació
+### Mobile app
 
-Aplicació basada en el framework React Native amb la gestió d'estats de Redux / Redux-saga i el framework de components UI Kitten.
+App based on the React Native framework with the state management of Redux / Redux-saga and the UI framework UI Kitten.
 
 ### Backend
 
-Servidor basat en el framework Express (Node.js) i la base de dades NOSQL MongoDB. El servidor gestiona les peticions AJAX mitjan autorització.
+Server based on Express (Node.js) and the NOSQL database MongoDB.
