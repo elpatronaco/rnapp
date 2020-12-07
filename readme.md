@@ -1,6 +1,6 @@
 # RNAPP
 
-Projecte d'aprenentatge. Aquesta aplicació
+Projecte d'aprenentatge. Aquesta aplicació permet autorització contra la base de dades i la funcionalitat encara no està establerta.
 
 ## Tecnologies
 
