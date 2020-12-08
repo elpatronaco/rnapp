@@ -4,26 +4,33 @@ import { Text, Input, Button } from '@ui-kitten/components'
 import { Formik } from 'formik'
 import { ILoginData } from '../../models/common'
 import * as Yup from 'yup'
+import { loginRequest, loginAxios } from '../../services'
 
 const login = ({ navigation }: { navigation: any }) => {
   const initialValues: ILoginData = { email: '', password: '' }
-  const submit = (values: ILoginData) => console.log(values)
 
-  const SigninSchema = Yup.object().shape({
-    email: Yup.string().email('Esto no es un email').required('Este campo es requerido'),
-    password: Yup.string()
-      .required('Este campo es requerido')
-      .uppercase('La contraseña requiere una mayúscula')
-      .min(8, 'La contraseña es de mínimo 8 caracteres')
-  })
+  const SigninSchema = React.useMemo(
+    () =>
+      Yup.object().shape({
+        email: Yup.string().email('Esto no es un email').required('Este campo es requerido'),
+        password: Yup.string()
+          .required('Este campo es requerido')
+          .uppercase('La contraseña requiere una mayúscula')
+          .min(8, 'La contraseña es de mínimo 8 caracteres')
+      }),
+    [Yup]
+  )
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={SigninSchema}
-      onSubmit={(values: any) => console.log(values)}
+      onSubmit={(values: ILoginData) => {
+        console.log(values)
+        loginAxios(values)
+      }}
     >
-      {({ handleChange, handleSubmit, values, touched, errors }) => (
+      {({ handleChange, handleSubmit, values, touched, errors, isValid }) => (
         <View style={styles.form}>
           <Text style={styles.title}>Iniciar Sesión</Text>
           <Input
@@ -40,7 +47,11 @@ const login = ({ navigation }: { navigation: any }) => {
             style={[styles.input, styles.element]}
             onChangeText={handleChange('password')}
           />
-          <Button style={[styles.submitbutton, styles.element]} onPress={() => handleSubmit()}>
+          <Button
+            style={[styles.submitbutton, styles.element]}
+            disabled={!isValid}
+            onPress={() => handleSubmit()}
+          >
             Enviar
           </Button>
           <Button

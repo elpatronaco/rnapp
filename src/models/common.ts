@@ -5,5 +5,5 @@ export interface ILoginData {
 
 export interface IUserData extends ILoginData {
   name: string
-  birthdate: Date
+  birthdate?: Date
 }

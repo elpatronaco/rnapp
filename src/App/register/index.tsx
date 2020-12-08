@@ -8,7 +8,12 @@ import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const register = ({ navigation }: { navigation: any }) => {
   const [passwordVisible, setPasswordVisible] = React.useState<boolean>(false)
-  const initialValues: IUserData = { email: '', password: '', name: '', birthdate: new Date() }
+  const initialValues: IUserData = {
+    email: '',
+    password: '',
+    name: '',
+    birthdate: new Date()
+  }
   const submit = (values: IUserData) => console.log(values)
 
   const renderIcon = (props: any) => (
@@ -41,7 +46,7 @@ const register = ({ navigation }: { navigation: any }) => {
             secureTextEntry={passwordVisible}
             onChangeText={handleChange('password')}
           />
-          <Datepicker date={values.birthdate} />
+          <Datepicker date={values.birthdate} onSelect={handleChange('birthdate')} />
           <Button style={[styles.submitbutton, styles.element]}>Enviar</Button>
         </View>
       )}
