@@ -1,10 +1,12 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import { Text, Input, Button } from '@ui-kitten/components'
+import { StyleSheet, View, Text } from 'react-native'
 import { Formik } from 'formik'
 import { ILoginData } from '../../models/common'
 import * as Yup from 'yup'
-import { loginRequest, loginAxios } from '../../services'
+import { loginRequest, testConnection } from '../../services'
+import { Button, HelperText, TextInput } from 'react-native-paper'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faMailBulk } from '@fortawesome/free-solid-svg-icons'
 
 const login = ({ navigation }: { navigation: any }) => {
   const initialValues: ILoginData = { email: '', password: '' }
@@ -27,39 +29,56 @@ const login = ({ navigation }: { navigation: any }) => {
       validationSchema={SigninSchema}
       onSubmit={(values: ILoginData) => {
         console.log(values)
-        loginAxios(values)
+        loginRequest(values)
       }}
     >
       {({ handleChange, handleSubmit, values, touched, errors, isValid }) => (
         <View style={styles.form}>
           <Text style={styles.title}>Iniciar Sesión</Text>
-          <Input
+          <TextInput
             placeholder="Correo electrónico"
             value={values.email}
-            caption={errors.email}
             style={[styles.input, styles.element]}
             onChangeText={handleChange('email')}
           />
-          <Input
+          <HelperText type="error" visible={errors.email !== undefined}>
+            {errors.email}
+          </HelperText>
+          <TextInput
             placeholder="Contraseña"
             value={values.password}
-            caption={errors.password}
+            secureTextEntry
             style={[styles.input, styles.element]}
             onChangeText={handleChange('password')}
           />
+          <HelperText type="error" visible={errors.password !== undefined}>
+            {errors.password}
+          </HelperText>
           <Button
-            style={[styles.submitbutton, styles.element]}
+            style={[styles.element, styles.buttons, styles.submitbutton]}
             disabled={!isValid}
+            color="black"
             onPress={() => handleSubmit()}
           >
             Enviar
           </Button>
           <Button
-            style={[styles.registerButton, styles.element]}
-            appearance="ghost"
+            style={[styles.element, styles.buttons, styles.registerButton]}
+            mode="outlined"
+            color="black"
             onPress={() => navigation.navigate('Register')}
           >
             Registrar
+          </Button>
+          <Button
+            style={[styles.element, styles.buttons, styles.registerButton]}
+            mode="outlined"
+            color="black"
+            onPress={() => {
+              testConnection()
+            }}
+          >
+            Testiar api
           </Button>
         </View>
       )}
@@ -85,11 +104,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   input: {
-    marginTop: 10
+    marginTop: 10,
+    backgroundColor: 'transparent'
+  },
+  buttons: {
+    height: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   submitbutton: {
-    backgroundColor: 'red',
-    fontSize: 15
+    backgroundColor: 'red'
   },
   registerButton: {},
   buttonText: {

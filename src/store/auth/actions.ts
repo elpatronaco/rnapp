@@ -1,16 +1,16 @@
 import { createAsyncAction } from 'typesafe-actions'
-import { ILoginData, IUserData } from '../models/common'
+import { ILoginData, IUserData } from '../../models/common'
 
-const login = createAsyncAction(
+const loginAction = createAsyncAction(
   '[Auth] Login Request',
   '[Auth] Login Success',
   '[Auth] Login Fail'
 )<ILoginData, IUserData, undefined>()
 
-const register = createAsyncAction(
+const registerAction = createAsyncAction(
   '[Auth] Register Request',
   '[Auth] Register Success',
   '[Auth] Register Fail'
 )<IUserData, IUserData, undefined>()
 
-export { login }
+export default { loginAction, registerAction }

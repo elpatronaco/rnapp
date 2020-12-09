@@ -1,7 +1,6 @@
-import { IUser } from '../../backend/schema/users'
 import { ILoginData, IUserData } from '../models/common'
 
-const url = 'http://192.168.1.58:4000'
+const url = 'https://192.168.1.58:4500'
 
 const loginRequest = async (values: ILoginData): Promise<IUserData | null> => {
   await fetch(`${url}/user/login/${JSON.stringify(values)}`, {
@@ -19,4 +18,17 @@ const loginRequest = async (values: ILoginData): Promise<IUserData | null> => {
   return null
 }
 
-export { loginRequest }
+const testConnection = async () => {
+  await fetch(url + '/', {
+    method: 'GET'
+  })
+    .then(response => {
+      console.log(response)
+      console.log('connectat')
+    })
+    .catch(reason => {
+      console.error(reason)
+    })
+}
+
+export { loginRequest, testConnection }

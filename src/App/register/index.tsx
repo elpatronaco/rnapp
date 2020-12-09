@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Text, Input, Button, Icon, Datepicker } from '@ui-kitten/components'
+import { Text, TextInput, Button } from 'react-native-paper'
 import { Formik } from 'formik'
 import { IUserData } from '../../models/common'
 import { EyeIcon, EyeOffIcon } from '../../components/icon'
@@ -16,37 +16,30 @@ const register = ({ navigation }: { navigation: any }) => {
   }
   const submit = (values: IUserData) => console.log(values)
 
-  const renderIcon = (props: any) => (
-    <TouchableWithoutFeedback onPress={passwordVisible => setPasswordVisible(!passwordVisible)}>
-      <Icon {...props} name={passwordVisible ? 'eye-off' : 'eye'} />
-    </TouchableWithoutFeedback>
-  )
-
   return (
     <Formik initialValues={initialValues} onSubmit={submit}>
       {({ handleChange, handleBlur, handleSubmit, values, touched, errors, isSubmitting }) => (
         <View style={styles.form}>
           <Text style={styles.title}>Registrar</Text>
-          <Input
+          <TextInput
             placeholder="Nombre"
             value={values.email}
             style={[styles.input, styles.element]}
             onChangeText={handleChange('email')}
           />
-          <Input
+          <TextInput
             placeholder="Correo electrónico"
             value={values.email}
             style={[styles.input, styles.element]}
             onChangeText={handleChange('email')}
           />
-          <Input
+          <TextInput
             placeholder="Contraseña"
             value={values.password}
             style={[styles.input, styles.element]}
             secureTextEntry={passwordVisible}
             onChangeText={handleChange('password')}
           />
-          <Datepicker date={values.birthdate} onSelect={handleChange('birthdate')} />
           <Button style={[styles.submitbutton, styles.element]}>Enviar</Button>
         </View>
       )}
